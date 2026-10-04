@@ -1,0 +1,12 @@
+# cognee-demo frontend: build with Node, serve with nginx (which forwards /api to the backend).
+FROM node:22.12-alpine AS build
+WORKDIR /web
+COPY package.json package-lock.json ./
+RUN npm ci --no-fund --no-audit
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /web/dist /usr/share/nginx/html
+EXPOSE 80
