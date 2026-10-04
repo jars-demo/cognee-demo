@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets: copy .env.example to .env and keep .env local
+.env
+
+# cognee local storage (databases, graph, vectors, logs)
+.cognee_data/
+.cognee_system/
+logs/
+.dlt/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Frontend
+node_modules/
+app/frontend/dist/
+.env.backup
+compose-build.log
