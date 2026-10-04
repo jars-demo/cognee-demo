@@ -1,0 +1,13 @@
+# Backend (FastAPI, Python)
+
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# cognee's local storage when it runs inside the backend
+.cognee_data/
+.cognee_system/
+logs/
