@@ -1,26 +1,28 @@
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-.pytest_cache/
-.ruff_cache/
+# Repo-wide ignores. Frontend-only rules live in app/frontend/.gitignore.
 
-# Secrets: copy .env.example to .env and keep .env local
+# Secrets and local settings: .env is written by scripts/setup.py; only the example is shared
 .env
+.env.*
+!.env.example
 
-# cognee local storage (databases, graph, vectors, logs)
+# cognee's local storage when it runs inside the backend (databases, graph, vectors, logs)
 .cognee_data/
 .cognee_system/
 logs/
 .dlt/
 
-# Editors / OS
+# Python (app/backend, scripts, tests)
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editors and OS
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
-
-# Frontend
-node_modules/
-app/frontend/dist/
-.env.backup
+*.log
