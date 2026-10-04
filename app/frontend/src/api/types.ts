@@ -1,4 +1,4 @@
-// Shapes returned by the backend (app/backend/routes.py).
+// Shapes returned by the backend (app/backend/api/routes/).
 
 export interface Status {
   mode: 'local' | 'local-llm' | 'remote'

@@ -1,5 +1,5 @@
 // Typed calls to the backend. Each function maps to one endpoint, and each endpoint to one
-// cognee call (see app/backend/memory.py).
+// cognee call (see app/backend/services/memory.py).
 
 import type {
   CallInfo,
