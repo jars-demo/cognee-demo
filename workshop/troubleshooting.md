@@ -43,11 +43,20 @@ after editing `.env`.
 ## Groq: remember is slow or logs `RateLimitError`
 
 Groq's free tier allows `openai/gpt-oss-120b` about **8,000 tokens per minute**, and building a
-graph sends several requests of 1,000–3,000 tokens each. cognee notices, slows down and retries
-by itself, so the run still finishes; it just takes a few minutes instead of seconds. Each
-attendee uses their own key, so attendees do not slow each other down.
+graph sends several requests of 1,000–3,000 tokens each. Without pacing, a larger remember can
+use up the minute's budget and fail with `RateLimitError`.
 
-To keep it quick, remember one sample at a time, and keep your own data short.
+`scripts/setup.py` (and the Groq block in `.env.example`) therefore turns on cognee's rate
+limiter at 4 LLM requests per minute:
+
+```bash
+LLM_RATE_LIMIT_ENABLED=true
+LLM_RATE_LIMIT_REQUESTS=4
+LLM_RATE_LIMIT_INTERVAL=60
+```
+
+Remembering is slower with an LLM (a few minutes for a sample), but it does not fail. Each
+attendee uses their own key, so attendees do not slow each other down. Keep your own data short.
 
 ## Recall returns nothing
 

@@ -156,6 +156,10 @@ def write_env(mode: str, args: argparse.Namespace) -> None:
                 'EMBEDDING_PROVIDER="fastembed"',
                 'EMBEDDING_MODEL="BAAI/bge-small-en-v1.5"',
                 "EMBEDDING_DIMENSIONS=384",
+                "# Groq's free tier allows about 8,000 tokens per minute: pace the requests.",
+                "LLM_RATE_LIMIT_ENABLED=true",
+                "LLM_RATE_LIMIT_REQUESTS=4",
+                "LLM_RATE_LIMIT_INTERVAL=60",
             ]
     if ENV_FILE.exists():
         if not confirm(".env exists. Replace it (old one kept as .env.backup)?", True, args.yes):

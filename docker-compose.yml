@@ -52,6 +52,7 @@ services:
     environment:
       COGNEE_SERVICE_URL: http://cognee:8000
       COGNEE_API_KEY: ""
+      TELEMETRY_DISABLED: "1"
     volumes:
       # Lets you run your use case without installing Python:
       #   docker compose exec backend python usecases/<your-handle>/run.py
