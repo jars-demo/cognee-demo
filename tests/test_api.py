@@ -21,7 +21,7 @@ def client(monkeypatch):
         calls.append(("recall", question, dataset, search_type))
         return [{"text": "Ravi Patel maintains it.", "source": "graph", "search_type": "CHUNKS"}]
 
-    async def fake_graph(dataset, settings, max_nodes=300):
+    async def fake_graph(dataset, settings):
         return transforms.graph(
             {
                 "nodes": [
@@ -159,3 +159,28 @@ def test_unknown_dataset_becomes_a_friendly_404(client, monkeypatch):
     response = client.post("/api/recall", json={"question": "who?", "dataset": "x"})
     assert response.status_code == 404
     assert "Remember first" in response.json()["detail"]
+
+
+def test_graph_is_scoped_to_the_datasets_documents():
+    """On a shared graph, only this dataset's documents, chunks and their entities remain."""
+    data = {
+        "nodes": [
+            {"id": "doc-a", "type": "TextDocument", "name": "a"},
+            {"id": "doc-b", "type": "TextDocument", "name": "b"},
+            {"id": "chunk-a", "type": "DocumentChunk", "document_id": "doc-a"},
+            {"id": "chunk-b", "type": "DocumentChunk", "document_id": "doc-b"},
+            {"id": "ravi", "type": "Entity", "name": "ravi patel"},
+            {"id": "lumen", "type": "Entity", "name": "mission lumen"},
+            {"id": "person", "type": "EntityType", "name": "person"},
+        ],
+        "links": [
+            {"source": "chunk-a", "target": "doc-a", "relation": "is_part_of"},
+            {"source": "chunk-b", "target": "doc-b", "relation": "is_part_of"},
+            {"source": "chunk-a", "target": "ravi", "relation": "contains"},
+            {"source": "chunk-b", "target": "lumen", "relation": "contains"},
+            {"source": "ravi", "target": "person", "relation": "is_a"},
+        ],
+    }
+    scoped = transforms.graph(data, {"doc-a"})
+    assert {n["id"] for n in scoped["nodes"]} == {"doc-a", "chunk-a", "ravi", "person"}
+    assert all(e["source"] != "chunk-b" for e in scoped["edges"])

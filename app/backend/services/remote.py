@@ -1,7 +1,8 @@
 """Graph reads from a remote cognee server (Docker Compose or Cognee Cloud).
 
 cognee.serve() routes remember/recall/forget to the server, but not graph reads, so this module
-calls the server's HTTP API for them: find the dataset id by name, then fetch its graph as JSON.
+calls the server's HTTP API for them: find the dataset id by name, fetch the graph as JSON, and
+list the dataset's documents so the graph can be scoped to them.
 """
 
 import httpx
@@ -15,19 +16,24 @@ class RemoteError(RuntimeError):
     """The remote cognee server could not answer."""
 
 
-async def fetch_graph(settings: Settings, dataset: str, max_nodes: int) -> dict:
+async def fetch_graph(settings: Settings, dataset: str, max_nodes: int) -> tuple[dict, set[str]]:
+    """The graph around a dataset, plus the ids of the documents in that dataset."""
     headers = {"X-Api-Key": settings.remote_api_key} if settings.remote_api_key else {}
     async with httpx.AsyncClient(
         base_url=settings.remote_url, headers=headers, timeout=TIMEOUT
     ) as client:
         dataset_id = await _dataset_id(client, dataset)
         if dataset_id is None:
-            return {"nodes": [], "links": []}
+            return {"nodes": [], "links": []}, set()
+
         response = await client.get(
             "/api/v1/visualize/json", params={"dataset_id": dataset_id, "max_nodes": max_nodes}
         )
         _raise_for_status(response)
-        return response.json()
+
+        documents = await client.get(f"/api/v1/datasets/{dataset_id}/data")
+        _raise_for_status(documents)
+        return response.json(), {str(item["id"]) for item in documents.json()}
 
 
 async def _dataset_id(client: httpx.AsyncClient, name: str) -> str | None:

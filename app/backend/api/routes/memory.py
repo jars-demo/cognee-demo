@@ -53,9 +53,9 @@ async def recall(body: RecallRequest) -> dict:
 
 
 @router.get("/graph")
-async def graph(dataset: DatasetName = config.SAMPLE_DATASET, max_nodes: int = 300) -> dict:
+async def graph(dataset: DatasetName = config.SAMPLE_DATASET) -> dict:
     started = time.perf_counter()
-    data = await run_cognee(memory.graph(dataset, config.get_settings(), max_nodes))
+    data = await run_cognee(memory.graph(dataset, config.get_settings()))
     return {
         "call": f'visualize_graph_json(dataset="{dataset}")',
         "seconds": seconds_since(started),

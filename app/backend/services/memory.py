@@ -57,16 +57,30 @@ async def recall(question: str, dataset: str, search_type: str | None = None) ->
     return [transforms.recall_result(item) for item in results]
 
 
-async def graph(dataset: str, settings: config.Settings, max_nodes: int = 300) -> dict:
+# Fetch generously, then keep only this dataset's part: with access control off, every dataset
+# shares one graph, and cognee returns the whole of it for any dataset.
+GRAPH_FETCH_LIMIT = 2000
+
+
+async def graph(dataset: str, settings: config.Settings) -> dict:
     """Read a dataset's knowledge graph as {nodes, edges}."""
     if settings.mode == config.REMOTE:
         # cognee.serve() does not route graph reads, so ask the server's HTTP API directly.
-        data = await remote.fetch_graph(settings, dataset, max_nodes)
+        data, document_ids = await remote.fetch_graph(settings, dataset, GRAPH_FETCH_LIMIT)
     else:
         data = await visualize_graph_json(
-            dataset=dataset, include_session_events=False, max_nodes=max_nodes
+            dataset=dataset, include_session_events=False, max_nodes=GRAPH_FETCH_LIMIT
         )
-    return transforms.graph(data)
+        document_ids = await _document_ids(dataset)
+    return transforms.graph(data, document_ids)
+
+
+async def _document_ids(dataset: str) -> set[str]:
+    """The ids of the documents stored in a dataset."""
+    for item in await cognee.datasets.list_datasets():
+        if item.name == dataset:
+            return {str(row.id) for row in await cognee.datasets.list_data(item.id)}
+    return set()
 
 
 async def forget(dataset: str) -> None:
