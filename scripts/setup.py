@@ -29,7 +29,7 @@ FRONTEND = ROOT / "app" / "frontend"
 ENV_FILE = ROOT / ".env"
 VENV_PYTHON = ROOT / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
 COGNEE_DOCKER_URL = "http://localhost:8001"
-GROQ_MODEL = "groq/llama-3.3-70b-versatile"
+GROQ_MODEL = "groq/openai/gpt-oss-120b"
 
 MODES = {
     "docker": "Everything in Docker: cognee + backend + frontend (recommended, needs only Docker)",

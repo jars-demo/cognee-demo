@@ -31,6 +31,7 @@ The full list is in the [recall docs](https://docs.cognee.ai/core-concepts/main-
    with LLM extraction.
 5. Ask the same questions with `GRAPH_COMPLETION` and compare. Load the graph again too.
 
-> Groq's free tier has rate limits. If you see a rate-limit error, wait a minute and retry.
+> Groq's free tier allows about 8,000 tokens per minute, so remembering with an LLM takes a few
+> minutes. cognee waits and retries on its own; see [troubleshooting](./troubleshooting.md).
 
 Next: [06 · Forget](./06-forget.md)

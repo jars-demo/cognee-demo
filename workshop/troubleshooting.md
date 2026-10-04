@@ -40,9 +40,14 @@ Uncomment the **whole** Groq block in `.env`, including the three `EMBEDDING_*` 
 no embedding models, so without them cognee falls back to OpenAI embeddings. Restart the server
 after editing `.env`.
 
-## Groq rate-limit errors
+## Groq: remember is slow or logs `RateLimitError`
 
-The free tier limits requests per minute. Wait a minute and retry, or remember less text at once.
+Groq's free tier allows `openai/gpt-oss-120b` about **8,000 tokens per minute**, and building a
+graph sends several requests of 1,000–3,000 tokens each. cognee notices, slows down and retries
+by itself, so the run still finishes; it just takes a few minutes instead of seconds. Each
+attendee uses their own key, so attendees do not slow each other down.
+
+To keep it quick, remember one sample at a time, and keep your own data short.
 
 ## Recall returns nothing
 
