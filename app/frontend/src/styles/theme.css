@@ -723,3 +723,29 @@ a.btn:hover { text-decoration: none; }
 footer p { margin: 0; }
 footer .footer-sub { margin-top: 4px; font-size: 12px; }
 footer a { color: var(--text); font-weight: 500; }
+
+/* ---------- cognee assets (see NOTICE.md) ---------- */
+
+.pill.powered { gap: 6px; color: var(--text-2); }
+.pill.powered:hover { text-decoration: none; border-color: var(--border-strong); }
+.pill.powered img, .footer-logo img { height: 14px; width: auto; display: block; }
+.footer-logo { display: inline-flex; vertical-align: -1px; }
+:root[data-theme="dark"] .pill.powered img,
+:root[data-theme="dark"] .footer-logo img,
+:root[data-theme="dark"] .tile-icon img,
+:root[data-theme="dark"] .btn .icon { filter: invert(1); }
+
+.tile-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--subtle);
+}
+
+.tile-icon img { width: 15px; height: 15px; }
+.tile-icon + .tile-call { display: block; }
+.btn .icon { width: 13px; height: 13px; }

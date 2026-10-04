@@ -5,16 +5,19 @@ import type { Memory } from '../hooks/useMemory.ts'
 const FEATURES = [
   {
     call: 'remember()',
+    icon: 'database',
     title: 'Remember',
     text: 'Give cognee text, files or whole folders. It chunks them, finds the people, things and how they relate, and stores it all as a knowledge graph.',
   },
   {
     call: 'recall()',
+    icon: 'message-square',
     title: 'Recall',
     text: 'Ask in plain language. cognee searches passages and the graph, and with an LLM writes an answer grounded in what it found.',
   },
   {
     call: 'forget()',
+    icon: 'x',
     title: 'Forget',
     text: 'Delete a document or a whole dataset. Its graph, vectors and stored text go with it, so memory stays accurate.',
   },
@@ -26,7 +29,12 @@ export function HomePage({ memory }: { memory: Memory }) {
   return (
     <main className="page">
       <section className="landing-hero">
-        <span className="pill">Hands-on workshop · 30–60 minutes</span>
+        <div className="row">
+          <span className="pill">Hands-on workshop · 30–60 minutes</span>
+          <a className="pill powered" href="https://github.com/topoteretes/cognee" target="_blank" rel="noreferrer">
+            <img src="/cognee/cognee-logo.svg" alt="cognee" /> on GitHub
+          </a>
+        </div>
         <h1>Give your app a memory with cognee</h1>
         <p>
           cognee is an open-source memory engine for AI apps. It turns your data into a knowledge
@@ -34,7 +42,9 @@ export function HomePage({ memory }: { memory: Memory }) {
         </p>
         <div className="row">
           <a className="btn" href="#/workshop">Start the workshop</a>
-          <a className="btn ghost" href="#/concepts">Learn the concepts</a>
+          <a className="btn ghost" href="#/concepts">
+            Learn the concepts <img className="icon" src="/cognee/icons/arrow-right.svg" alt="" />
+          </a>
         </div>
       </section>
 
@@ -54,6 +64,7 @@ export function HomePage({ memory }: { memory: Memory }) {
         <div className="tiles">
           {FEATURES.map((feature) => (
             <div className="tile" key={feature.title}>
+              <span className="tile-icon"><img src={`/cognee/icons/${feature.icon}.svg`} alt="" /></span>
               <code className="tile-call">cognee.{feature.call}</code>
               <h3>{feature.title}</h3>
               <p>{feature.text}</p>
@@ -82,7 +93,7 @@ export function HomePage({ memory }: { memory: Memory }) {
 
       <section className="section">
         <h2 className="section-title">Run it yourself</h2>
-        <div className="tiles two">
+        <div className="tiles">
           <div className="tile">
             <h3>Everything in Docker</h3>
             <pre>{`git clone https://github.com/jars-demo/cognee-demo.git
@@ -95,6 +106,11 @@ docker compose up -d --build`}</pre>
             <pre>{'python scripts/setup.py'}</pre>
             <p>Add a free Groq key for LLM answers, use Cognee Cloud, or run without Docker.</p>
           </div>
+          <a className="tile link" href="https://github.com/jars-demo/cognee-demo/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
+            <span className="tile-icon"><img src="/cognee/icons/pullrequest.svg" alt="" /></span>
+            <h3>Share your use case</h3>
+            <p>The workshop ends with your own data in <code>usecases/</code> and a pull request.</p>
+          </a>
         </div>
       </section>
     </main>

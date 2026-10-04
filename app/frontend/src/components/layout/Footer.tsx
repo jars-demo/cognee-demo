@@ -8,8 +8,10 @@ export function Footer() {
         </a>
       </p>
       <p className="footer-sub">
-        Powered by <a href="https://github.com/topoteretes/cognee" target="_blank" rel="noreferrer">cognee</a>,
-        the open-source AI memory engine · Fork the workshop, build your use case, open a PR.
+        <a className="footer-logo" href="https://github.com/topoteretes/cognee" target="_blank" rel="noreferrer">
+          <img src="/cognee/cognee-logo.svg" alt="cognee on GitHub" />
+        </a>{' '}
+        · Community workshop, not affiliated with cognee
       </p>
     </footer>
   )
