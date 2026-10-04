@@ -1,0 +1,73 @@
+# The whole stack:   docker compose up -d --build    then open http://localhost:3000
+#
+#   frontend  React app on nginx            http://localhost:3000
+#   backend   FastAPI (app/backend)         http://localhost:8000
+#   cognee    official cognee server        http://localhost:8001
+#
+# Developing? Keep cognee in Docker and run the other two locally with hot reload:
+#   docker compose stop frontend backend
+#   uv run python -m app --reload            (backend, uses COGNEE_SERVICE_URL from .env)
+#   cd app/frontend && npm run dev           (frontend at http://localhost:5173)
+#
+# Add a free Groq key with `python scripts/setup.py` (or edit .env), then `docker compose up -d`.
+
+services:
+  cognee:
+    image: cognee/cognee:1.6.2
+    ports:
+      - "8001:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Single-user local server: no login. Do not expose these ports to a network.
+      ENABLE_BACKEND_ACCESS_CONTROL: "false"
+      # This container IS the cognee server, so it must not connect to another one.
+      COGNEE_SERVICE_URL: ""
+      COGNEE_API_KEY: ""
+      AUTO_FEEDBACK: "false"
+      TELEMETRY_DISABLED: "1"
+      # Keep the downloaded local models (about 1 GB) in the storage volume, so they download
+      # once and survive restarts. The defaults (/tmp, ~/.cache) are lost on every recreate.
+      FASTEMBED_CACHE_PATH: /cognee-storage/models/fastembed
+      HF_HOME: /cognee-storage/models/huggingface
+    volumes:
+      # All memory and the downloaded models. `docker compose down -v` deletes it.
+      - cognee_storage:/cognee-storage
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 6
+      # The first start downloads the embedding model; give it time before counting failures.
+      start_period: 10m
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: app/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      COGNEE_SERVICE_URL: http://cognee:8000
+      COGNEE_API_KEY: ""
+    volumes:
+      # Lets you run your use case without installing Python:
+      #   docker compose exec backend python usecases/<your-handle>/run.py
+      - ./usecases:/srv/usecases:ro
+    depends_on:
+      cognee:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: app/frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  cognee_storage:

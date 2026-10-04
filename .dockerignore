@@ -1,0 +1,9 @@
+.git
+.venv
+.env
+.env.*
+.cognee_data
+.cognee_system
+**/__pycache__
+**/node_modules
+app/frontend/dist
