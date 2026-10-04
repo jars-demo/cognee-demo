@@ -122,3 +122,27 @@ def test_health(client):
 def test_defaults_to_the_sample_dataset(client):
     client.post("/api/forget", json={})
     assert client.calls[-1] == ("forget", "northwind_trails")
+
+
+def test_remote_missing_llm_key_becomes_a_friendly_400(client, monkeypatch):
+    async def remote_without_key(question, dataset, search_type=None):
+        raise RuntimeError(
+            'Remote recall failed (422): "LLM API key is not set. [LLMAPIKeyNotSetError]"'
+        )
+
+    monkeypatch.setattr(memory, "recall", remote_without_key)
+    response = client.post(
+        "/api/recall", json={"question": "who?", "search_type": "GRAPH_COMPLETION"}
+    )
+    assert response.status_code == 400
+    assert "Groq" in response.json()["detail"]
+
+
+def test_unknown_dataset_becomes_a_friendly_404(client, monkeypatch):
+    async def missing(question, dataset, search_type=None):
+        raise RuntimeError("Dataset(s) not found: 'x'. [DatasetNotFoundError]")
+
+    monkeypatch.setattr(memory, "recall", missing)
+    response = client.post("/api/recall", json={"question": "who?", "dataset": "x"})
+    assert response.status_code == 404
+    assert "Remember first" in response.json()["detail"]

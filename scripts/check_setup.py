@@ -3,8 +3,8 @@
     uv run python scripts/check_setup.py
 
 It remembers one short text, asks a question about it, reads back the graph, then forgets the
-test dataset, using the same code the app uses (app/backend/memory.py). In the local and Docker
-modes the first run downloads the local models, so give it a few minutes.
+test dataset, using the same code as the app (app/backend/services/memory.py). Without an LLM
+key the first run downloads the local models, so give it a few minutes.
 """
 
 import asyncio

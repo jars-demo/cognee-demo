@@ -6,7 +6,7 @@ import time
 
 from fastapi import APIRouter, HTTPException
 
-from app.backend.api.errors import run_cognee, seconds_since
+from app.backend.api.errors import NO_LLM_KEY, run_cognee, seconds_since
 from app.backend.api.schemas import DatasetName, ForgetRequest, RecallRequest, RememberRequest
 from app.backend.core import config
 from app.backend.services import memory
@@ -41,13 +41,7 @@ async def recall(body: RecallRequest) -> dict:
     if search_type and search_type not in memory.SEARCH_TYPES:
         raise HTTPException(status_code=400, detail=f"Unknown search type: {search_type}")
     if search_type in memory.LLM_SEARCH_TYPES and config.get_settings().llm_available is False:
-        raise HTTPException(
-            status_code=400,
-            detail=(
-                f"{search_type} writes its answer with an LLM, and no LLM key is configured. "
-                "Use Auto or CHUNKS, or add a free Groq key (workshop step 5)."
-            ),
-        )
+        raise HTTPException(status_code=400, detail=NO_LLM_KEY)
     started = time.perf_counter()
     results = await run_cognee(memory.recall(body.question, body.dataset, search_type))
     type_arg = f", query_type=SearchType.{search_type}" if search_type else ""
