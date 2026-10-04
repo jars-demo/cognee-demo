@@ -1,6 +1,8 @@
 // The landing page: what cognee is, how it works, the sample datasets, and how to start.
 
+import { CommandBlock } from '../components/CommandBlock.tsx'
 import type { Memory } from '../hooks/useMemory.ts'
+import { REPO_URL } from '../site.ts'
 
 const FEATURES = [
   {
@@ -92,25 +94,42 @@ export function HomePage({ memory }: { memory: Memory }) {
       </section>
 
       <section className="section">
-        <h2 className="section-title">Run it yourself</h2>
-        <div className="tiles">
-          <div className="tile">
-            <h3>Everything in Docker</h3>
-            <pre>{`git clone https://github.com/jars-demo/cognee-demo.git
-cd cognee-demo
-docker compose up -d --build`}</pre>
-            <p>No API key needed. Open http://localhost:3000.</p>
+        <h2 className="section-title">Get started in three steps</h2>
+        <p className="section-lede">
+          You need <a href="https://docs.docker.com/get-docker/" target="_blank" rel="noreferrer">Docker Desktop</a>{' '}
+          and Git. No account and no API key.
+        </p>
+        <div className="start">
+          <div className="start-main">
+            <CommandBlock
+              lines={[
+                '# 1. Get the code',
+                `git clone ${REPO_URL}.git`,
+                'cd cognee-demo',
+                '',
+                '# 2. Start cognee, the backend and the app',
+                'docker compose up -d --build',
+                '',
+                '# 3. Open http://localhost:3000/#/workshop',
+              ]}
+            />
+            <p className="hint">
+              The first build takes a few minutes, and the first Remember downloads the local models
+              (about 1 GB, once).
+            </p>
           </div>
-          <div className="tile">
-            <h3>Guided setup</h3>
-            <pre>{'python scripts/setup.py'}</pre>
-            <p>Add a free Groq key for LLM answers, use Cognee Cloud, or run without Docker.</p>
+          <div className="start-side">
+            <div className="tile">
+              <h3>Prefer a guided setup?</h3>
+              <p>Add a free Groq key for LLM answers, use Cognee Cloud, or run without Docker.</p>
+              <CommandBlock title="Guided setup" lines={['python scripts/setup.py']} />
+            </div>
+            <a className="tile link" href={`${REPO_URL}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noreferrer">
+              <span className="tile-icon"><img src="/cognee/icons/pullrequest.svg" alt="" /></span>
+              <h3>Share your use case</h3>
+              <p>The workshop ends with your own data in <code>usecases/</code> and a pull request.</p>
+            </a>
           </div>
-          <a className="tile link" href="https://github.com/jars-demo/cognee-demo/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
-            <span className="tile-icon"><img src="/cognee/icons/pullrequest.svg" alt="" /></span>
-            <h3>Share your use case</h3>
-            <p>The workshop ends with your own data in <code>usecases/</code> and a pull request.</p>
-          </a>
         </div>
       </section>
     </main>

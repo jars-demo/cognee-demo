@@ -11,7 +11,7 @@ commit `b7fcc7f`):
 
 | File | Source path |
 |---|---|
-| `icons/database.svg`, `icons/message-square.svg`, `icons/x.svg`, `icons/pullrequest.svg`, `icons/arrow-right.svg` | `images/icons/` |
+| `icons/database.svg`, `icons/message-square.svg`, `icons/x.svg`, `icons/pullrequest.svg`, `icons/arrow-right.svg`, `icons/copy.svg` | `images/icons/` |
 | `cognee-logo.svg` | `cognee-logo-black.svg` |
 
 > topoteretes - cognee
@@ -20,8 +20,9 @@ commit `b7fcc7f`):
 
 These files are used under the [Apache License 2.0](https://github.com/topoteretes/cognee/blob/main/LICENSE).
 The cognee name and logo are trademarks of Topoteretes UG; the license grants no trademark rights
-(section 6), so the logo appears here only as a link to the cognee project, never as this workshop's own
-logo.
+(section 6). The logo identifies the project this workshop teaches: it appears in the app's header
+next to the word "demo", and as a link to the cognee repository. The footer, README and this file
+state that the workshop is a community project, not affiliated with or endorsed by cognee.
 
 ## Sample data
 

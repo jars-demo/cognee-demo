@@ -1,6 +1,7 @@
 // The Workshop page on the static (Vercel) site: the live playground needs cognee running, so
 // this shows the steps and how to start the workshop on your own machine.
 
+import { CommandBlock } from '../components/CommandBlock.tsx'
 import { REPO_URL } from '../site.ts'
 import { STEPS } from '../workshop/steps.tsx'
 
@@ -20,9 +21,9 @@ export function RunLocallyPage() {
         <div className="tile">
           <span className="tile-call">1 · Start it</span>
           <h3>One command with Docker</h3>
-          <pre>{`git clone ${REPO_URL}.git
-cd cognee-demo
-docker compose up -d --build`}</pre>
+          <CommandBlock
+            lines={[`git clone ${REPO_URL}.git`, 'cd cognee-demo', 'docker compose up -d --build']}
+          />
           <p>Then open http://localhost:3000/#/workshop.</p>
         </div>
         <div className="tile">

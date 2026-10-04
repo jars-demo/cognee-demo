@@ -19,7 +19,10 @@ export function TopBar({ route, status, statusError, dark, onTheme }: Props) {
       : 'Checking setup…'
   return (
     <header className="topbar">
-      <a className="logo" href="#/"><span className="logo-dot" />cognee demo</a>
+      <a className="logo" href="#/" aria-label="cognee demo: home">
+        <img className="logo-mark" src="/cognee/cognee-logo.svg" alt="cognee" />
+        <span className="logo-tag">demo</span>
+      </a>
       <nav className="nav" aria-label="Pages">
         {ROUTES.map((r) => (
           <a key={r.route} href={r.href} className={route === r.route ? 'active' : ''}>

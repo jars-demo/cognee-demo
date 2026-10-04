@@ -1,6 +1,7 @@
 // The app shell: top bar, the current page, footer.
 
 import { useCallback, useEffect } from 'react'
+import { BackToTop } from './components/layout/BackToTop.tsx'
 import { Footer } from './components/layout/Footer.tsx'
 import { TopBar } from './components/layout/TopBar.tsx'
 import { type StepId, useMemory } from './hooks/useMemory.ts'
@@ -53,6 +54,7 @@ export default function App() {
         />
       )}
       <Footer />
+      <BackToTop />
     </>
   )
 }
