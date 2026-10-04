@@ -15,7 +15,7 @@ export function Card({ id, num, title, lede, wide, highlight, children }: Props)
   return (
     <section className={classes} id={id}>
       <div className="card-head">
-        <span className="num">{num}</span>
+        <span className="num">{/^\d+$/.test(num) ? num.padStart(2, "0") : num}</span>
         <h2>{title}</h2>
       </div>
       <p className="lede">{lede}</p>

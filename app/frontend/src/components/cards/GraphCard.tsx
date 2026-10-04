@@ -4,8 +4,8 @@ import type { GraphNode } from '../../api/types.ts'
 import type { Memory } from '../../hooks/useMemory.ts'
 import { Button, Card } from '../Card.tsx'
 
-// Lavender first (cognee's accent), then calm, distinguishable tones.
-const COLORS = ['#bc9bff', '#7fb6ff', '#7ed9a5', '#f7b267', '#ff8f8f', '#d4c4a8', '#9aa5b1', '#e3d5ff']
+// Muted, distinguishable tones; indigo (the accent) first.
+const COLORS = ['#6366f1', '#0ea5e9', '#10b981', '#f59e0b', '#f43f5e', '#8b5cf6', '#64748b', '#14b8a6']
 
 interface Selected {
   node: GraphNode
@@ -18,7 +18,7 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
   const graph = memory.graph
   const types = useMemo(() => [...new Set(graph?.nodes.map((n) => n.type) ?? [])].sort(), [graph])
   const color = (type: string) => COLORS[types.indexOf(type) % COLORS.length]
-  const ink = dark ? '#f4f2ee' : '#0c0121'
+  const ink = dark ? '#fafafa' : '#18181b'
 
   useEffect(() => {
     setSelected(null)
@@ -34,8 +34,8 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
         {
           selector: 'node',
           style: {
-            'background-color': 'data(color)', 'border-width': 1.5, 'border-color': ink,
-            label: 'data(label)', color: ink, 'font-size': 10, 'font-family': 'Inter, sans-serif',
+            'background-color': 'data(color)', 'border-width': 1.5, 'border-color': dark ? '#09090b' : '#ffffff',
+            label: 'data(label)', color: ink, 'font-size': 10, 'font-family': 'Geist, sans-serif',
             'text-valign': 'bottom', 'text-margin-y': 4, width: 18, height: 18,
           },
         },
@@ -47,7 +47,7 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
             label: 'data(label)', 'font-size': 8, color: `${ink}aa`, 'text-rotation': 'autorotate',
           },
         },
-        { selector: 'node:selected', style: { 'border-width': 4, 'border-color': '#a380ea' } },
+        { selector: 'node:selected', style: { 'border-width': 4, 'border-color': '#4f46e5' } },
       ],
       layout: { name: 'cose', animate: false, nodeRepulsion: () => 9000, idealEdgeLength: () => 90 },
       wheelSensitivity: 0.2,

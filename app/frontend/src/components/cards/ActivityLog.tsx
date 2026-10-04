@@ -8,7 +8,7 @@ export function ActivityLog({ lines }: { lines: LogLine[] }) {
     if (box.current) box.current.scrollTop = box.current.scrollHeight
   }, [lines])
   return (
-    <Card id="card-log" num="⌁" title="Under the hood" lede="Every cognee call this page makes, and how long it took.">
+    <Card id="card-log" num="—" title="Under the hood" lede="Every cognee call this page makes, and how long it took.">
       <div className="log" ref={box}>
         {lines.length === 0 && (
           <div className="line"><span className="time">--:--:--</span><span>Waiting for your first action.</span></div>
