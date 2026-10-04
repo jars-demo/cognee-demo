@@ -34,7 +34,7 @@ async def main() -> None:
     await memory.connect(config.get_settings())
 
     # Start clean, so re-running the script does not mix old and new data.
-    await memory.forget(DATASET)
+    await memory.forget(DATASET, missing_ok=True)
 
     # 3. Remember every .md and .txt file in data/, one document per file.
     files = sorted(p for p in (HERE / "data").iterdir() if p.suffix in {".md", ".txt"})

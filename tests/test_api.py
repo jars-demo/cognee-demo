@@ -184,3 +184,15 @@ def test_graph_is_scoped_to_the_datasets_documents():
     scoped = transforms.graph(data, {"doc-a"})
     assert {n["id"] for n in scoped["nodes"]} == {"doc-a", "chunk-a", "ravi", "person"}
     assert all(e["source"] != "chunk-b" for e in scoped["edges"])
+
+
+def test_forget_missing_ok_ignores_an_unknown_dataset(monkeypatch):
+    import asyncio
+
+    async def not_found(dataset):
+        raise RuntimeError("Dataset 'x' not found. [DatasetNotFoundError]")
+
+    monkeypatch.setattr(memory.cognee, "forget", not_found)
+    asyncio.run(memory.forget("x", missing_ok=True))  # no error
+    with pytest.raises(RuntimeError):
+        asyncio.run(memory.forget("x"))

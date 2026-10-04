@@ -83,6 +83,14 @@ async def _document_ids(dataset: str) -> set[str]:
     return set()
 
 
-async def forget(dataset: str) -> None:
-    """Delete a dataset from memory: its graph, vectors and stored text."""
-    await cognee.forget(dataset=dataset)
+async def forget(dataset: str, missing_ok: bool = False) -> None:
+    """Delete a dataset from memory: its graph, vectors and stored text.
+
+    With missing_ok, a dataset that does not exist yet is not an error (useful for "start clean").
+    """
+    try:
+        await cognee.forget(dataset=dataset)
+    except Exception as error:
+        if missing_ok and "DatasetNotFoundError" in f"{type(error).__name__} {error}":
+            return
+        raise
