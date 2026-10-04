@@ -1,5 +1,6 @@
 import type { Status } from '../../api/types.ts'
 import { ROUTES, type Route } from '../../router.ts'
+import { IS_STATIC_SITE, REPO_URL } from '../../site.ts'
 
 interface Props {
   route: Route
@@ -27,7 +28,13 @@ export function TopBar({ route, status, statusError, dark, onTheme }: Props) {
         ))}
       </nav>
       <div className="spacer" />
-      <span className={`badge ${badgeClass}`} title={status?.detail}>{badgeText}</span>
+      {IS_STATIC_SITE ? (
+        <a className="badge" href={REPO_URL} target="_blank" rel="noreferrer">
+          Static preview · run it locally for the live demo
+        </a>
+      ) : (
+        <span className={`badge ${badgeClass}`} title={status?.detail}>{badgeText}</span>
+      )}
       <button className="btn ghost small" type="button" onClick={onTheme} aria-label="Toggle dark mode">
         {dark ? 'Light' : 'Dark'}
       </button>

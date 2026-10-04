@@ -8,7 +8,9 @@ import { useStoredState } from './hooks/useStoredState.ts'
 import { ConceptsPage } from './pages/ConceptsPage.tsx'
 import { HomePage } from './pages/HomePage.tsx'
 import { WorkshopPage } from './pages/WorkshopPage.tsx'
+import { RunLocallyPage } from './pages/RunLocallyPage.tsx'
 import { useRoute } from './router.ts'
+import { IS_STATIC_SITE } from './site.ts'
 import { STEPS } from './workshop/steps.tsx'
 
 export default function App() {
@@ -33,7 +35,8 @@ export default function App() {
       <TopBar route={route} status={memory.status} statusError={memory.statusError} dark={dark} onTheme={() => setDark(!dark)} />
       {route === 'home' && <HomePage memory={memory} />}
       {route === 'concepts' && <ConceptsPage />}
-      {route === 'workshop' && (
+      {route === 'workshop' && IS_STATIC_SITE && <RunLocallyPage />}
+      {route === 'workshop' && !IS_STATIC_SITE && (
         <WorkshopPage
           memory={memory}
           dark={dark}

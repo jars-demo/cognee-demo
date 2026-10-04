@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../api/client.ts'
+import { BUNDLED_SAMPLES, IS_STATIC_SITE } from '../site.ts'
 import type { GraphResponse, RecallResult, Sample, SearchType, Status } from '../api/types.ts'
 
 export type LogKind = 'call' | 'ok' | 'err'
@@ -42,8 +43,13 @@ export function useMemory(onStepDone: (id: StepId) => void) {
   const say = (card: string, message: string) => setNotice((n) => ({ ...n, [card]: message }))
 
   useEffect(() => {
+    // The static (Vercel) site has no backend: list the samples bundled at build time.
+    if (IS_STATIC_SITE) return setSamples(BUNDLED_SAMPLES)
     api.status().then(setStatus).catch(() => setStatusError(true))
-    api.samples().then((list) => setSamples(list.samples)).catch(() => undefined)
+    api
+      .samples()
+      .then((list) => setSamples(list.samples))
+      .catch(() => setSamples(BUNDLED_SAMPLES))
   }, [])
 
   async function guarded<T>(name: string, task: () => Promise<T>): Promise<T | undefined> {

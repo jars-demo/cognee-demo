@@ -34,6 +34,7 @@ app/frontend/src/
 ├── components/cards/        Remember, Recall, Graph, Forget, ActivityLog
 ├── components/layout/       TopBar, Hero, Footer
 ├── hooks/useMemory.ts       all state and actions
+├── site.ts                  build flavour: full app, or static site (npm run build:static, Vercel)
 ├── api/                     typed API client
 └── workshop/                workshop steps and panel
 

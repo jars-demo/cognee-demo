@@ -118,6 +118,21 @@ cd app/frontend && npm run lint && npm run build
 Versions are pinned everywhere: `pyproject.toml` + `uv.lock` (and the full `requirements.txt`
 for pip), `app/frontend/package.json` + `package-lock.json`, and `cognee/cognee:1.6.2`.
 
+## Publish the landing site (Vercel)
+
+Vercel can host the **frontend only**: cognee and the backend need a machine of their own. The
+static build (`npm run build:static`) keeps the Home and Concepts pages and turns the Workshop
+page into "run it locally" instructions. [`app/frontend/vercel.json`](app/frontend/vercel.json)
+is already set up for it.
+
+1. In Vercel, **Add New → Project** and import this GitHub repository.
+2. Set **Root Directory** to `app/frontend`. Leave the other settings as they are: `vercel.json`
+   sets the install command, build command and output folder.
+3. Click **Deploy**.
+
+The build reads the sample datasets from `data/`, outside the root directory; Vercel includes
+those files by default (keep "Include files outside the root directory" enabled).
+
 ## Contribute
 
 Add your use case (the workshop's final step) or improve the workshop: see
