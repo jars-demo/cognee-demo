@@ -1,8 +1,8 @@
-<p align="center">
+<div align="center">
   <a href="https://github.com/topoteretes/cognee">
-    <img src="app/frontend/public/cognee/cognee-logo.svg" alt="cognee" height="40">
+    <img src="docs/images/cognee-logo.svg" alt="Cognee Logo" width="260">
   </a>
-</p>
+</div>
 
 <h1 align="center">cognee-demo</h1>
 

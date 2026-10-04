@@ -14,6 +14,10 @@ commit `b7fcc7f`):
 | `icons/database.svg`, `icons/message-square.svg`, `icons/x.svg`, `icons/pullrequest.svg`, `icons/arrow-right.svg`, `icons/copy.svg` | `images/icons/` |
 | `cognee-logo.svg` | `cognee-logo-black.svg` |
 
+`docs/images/cognee-logo.svg` (used at the top of the README) is copied unchanged from
+[`assets/cognee-logo.svg`](https://github.com/topoteretes/cognee/blob/main/assets/cognee-logo.svg)
+in the same repository (commit `e93a4f0`).
+
 > topoteretes - cognee
 > Copyright © 2024 Topoteretes UG. (haftungsbeschränkt), Schonehauser Allee 163, Berlin.
 > This project includes software developed at Topoteretes UG. (https://www.cognee.ai/).
