@@ -683,3 +683,43 @@ a.btn:hover { text-decoration: none; }
   .landing-hero { padding-top: 48px; }
   .page { padding: 0 16px 48px; }
 }
+
+/* ---------- graph diagram (Concepts 04) ---------- */
+
+.diagram { margin: 16px 0 4px; }
+
+.diagram svg {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0) 0 0 / 18px 18px,
+    var(--subtle);
+}
+
+.diagram-edge { stroke: var(--text-3); stroke-width: 1.4; }
+.diagram-edge.dashed { stroke-dasharray: 4 4; stroke: var(--border-strong); }
+.diagram-arrow { fill: var(--text-3); }
+.diagram-edge-label { font: 500 10.5px var(--font-mono); fill: var(--text-2); paint-order: stroke; stroke: var(--subtle); stroke-width: 4px; }
+
+.diagram-node.entity { fill: var(--accent); stroke: var(--surface); stroke-width: 3; }
+.diagram-node.type { fill: #10b981; stroke: var(--surface); stroke-width: 3; }
+.diagram-node.chunk { fill: var(--surface); stroke: var(--border-strong); }
+
+.diagram-label { font: 500 12px var(--font-sans); fill: var(--text); }
+.diagram-label.type { fill: var(--text-2); font-size: 11px; }
+.diagram-label.chunk { font: 500 11.5px var(--font-mono); fill: var(--text-2); }
+
+.diagram figcaption { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; font-size: 12px; color: var(--text-3); }
+.diagram .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+.diagram .dot.entity { background: var(--accent); }
+.diagram .dot.type { background: #10b981; }
+.diagram .dot.chunk { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 2px; }
+
+.step-list { margin: 8px 0 0; padding-left: 18px; color: var(--text-2); font-size: 13.5px; }
+.step-list li { margin-bottom: 4px; }
+
+footer p { margin: 0; }
+footer .footer-sub { margin-top: 4px; font-size: 12px; }
+footer a { color: var(--text); font-weight: 500; }

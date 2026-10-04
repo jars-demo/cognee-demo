@@ -1,10 +1,14 @@
 // The ideas behind cognee, each with a short example. Read before (or during) the workshop.
 
+import type { ReactNode } from 'react'
+import { GraphDiagram } from '../components/GraphDiagram.tsx'
+
 interface Concept {
   id: string
   title: string
   body: string
   code?: string
+  visual?: ReactNode
 }
 
 const CONCEPTS: Concept[] = [
@@ -32,9 +36,10 @@ await cognee.recall(question, datasets=["northwind_trails"])`,
     code: 'await cognee.remember(documents, dataset_name="demo", chunk_size=128)',
   },
   {
-    id: 'graph',
+    id: 'knowledge-graph',
     title: 'Entities and the knowledge graph',
-    body: 'From each chunk, an extractor pulls out entities (people, teams, projects) and the relationships between them. They become nodes and edges in a graph database. Every entity points back to the chunk it came from, so answers stay traceable.',
+    body: 'From each chunk, an extractor pulls out entities (people, teams, projects) and the relationships between them. They become nodes and edges in a graph database. Every entity points back to the chunk it came from, so answers stay traceable. Here is a small piece of the Northwind graph:',
+    visual: <GraphDiagram />,
   },
   {
     id: 'vectors',
@@ -93,6 +98,7 @@ export function ConceptsPage() {
               <span className="concept-index">{String(index + 1).padStart(2, '0')}</span>
               <h2>{concept.title}</h2>
               <p>{concept.body}</p>
+              {concept.visual}
               {concept.code && <pre>{concept.code}</pre>}
             </article>
           ))}
