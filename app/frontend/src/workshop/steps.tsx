@@ -1,7 +1,7 @@
 // The seven workshop steps shown in Workshop mode. Keep in sync with workshop/*.md.
 
 import type { ReactNode } from 'react'
-import type { Memory, StepId } from '../hooks/useMemory.ts'
+import { type Memory, SAMPLE_DATASET, type StepId } from '../hooks/useMemory.ts'
 
 export interface Step {
   id: StepId
@@ -43,14 +43,14 @@ await cognee.forget(dataset=…) # delete`}</pre>
       <>
         <h4>Store text in memory</h4>
         <ol>
-          <li>Click <strong>Try it</strong> to load the sample: three short notes about a fictional company, Northwind Trails.</li>
+          <li>Click <strong>Try it</strong> to load the <strong>Northwind Trails</strong> sample: three short notes about a fictional company, from <code>data/northwind_trails/</code>.</li>
           <li>Click <strong>Remember</strong>. The first run downloads local models, so give it a minute or two.</li>
         </ol>
         <p>Under the hood, <code>remember()</code> chunks the text, extracts entities and relationships, stores them in a graph database, and embeds everything for search.</p>
         <pre>{'await cognee.remember(documents, dataset_name="northwind_trails")'}</pre>
       </>
     ),
-    action: { label: 'Try it: load the sample', run: (m) => m.loadSample() },
+    action: { label: 'Try it: load the sample', run: (m) => m.loadSample(SAMPLE_DATASET) },
   },
   {
     id: 'recall',

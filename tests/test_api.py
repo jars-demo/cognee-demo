@@ -65,11 +65,24 @@ def test_remote_mode_comes_from_service_url(client, monkeypatch):
     assert client.get("/api/status").json()["mode"] == "remote"
 
 
-def test_sample_matches_its_data_folder(client):
-    body = client.get("/api/sample").json()
-    assert body["dataset"] == "northwind_trails"
-    assert body["documents"] == 3
-    assert "Northwind Trails" in body["text"]
+def test_samples_list_every_data_folder(client):
+    body = client.get("/api/samples").json()
+    assert body["default"] == "northwind_trails"
+    names = [sample["dataset"] for sample in body["samples"]]
+    assert names == ["harbor_city_library", "meridian_space_lab", "northwind_trails"]
+    assert all(sample["files"] == 3 and len(sample["questions"]) == 3 for sample in body["samples"])
+
+
+def test_sample_text_has_one_document_per_file(client):
+    body = client.get("/api/samples/meridian_space_lab").json()
+    assert body["dataset"] == "meridian_space_lab"
+    assert body["text"].count("\n---\n") == 2
+    assert "Meridian Space Lab" in body["text"]
+
+
+def test_unknown_or_unsafe_sample_is_404(client):
+    assert client.get("/api/samples/nope").status_code == 404
+    assert client.get("/api/samples/..").status_code == 404
 
 
 def test_remember_splits_documents_on_separator(client):

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../api/client.ts'
-import type { GraphResponse, RecallResult, SearchType, Status } from '../api/types.ts'
+import type { GraphResponse, RecallResult, Sample, SearchType, Status } from '../api/types.ts'
 
 export type LogKind = 'call' | 'ok' | 'err'
 export interface LogLine {
@@ -14,7 +14,7 @@ export interface LogLine {
 
 export type StepId = 'setup' | 'remember' | 'recall' | 'graph' | 'search-types' | 'forget' | 'your-use-case'
 
-// Matches data/northwind_trails/ on the backend: the sample folder and the dataset share a name.
+// The workshop's sample. Every folder in data/ is a sample, remembered into the dataset of the same name.
 export const SAMPLE_DATASET = 'northwind_trails'
 
 let nextLogId = 0
@@ -31,6 +31,8 @@ export function useMemory(onStepDone: (id: StepId) => void) {
   const [busy, setBusy] = useState<string | null>(null)
   const [notice, setNotice] = useState<Record<string, string>>({})
   const [log, setLog] = useState<LogLine[]>([])
+  const [samples, setSamples] = useState<Sample[]>([])
+  const [sampleName, setSampleName] = useState(SAMPLE_DATASET)
 
   const write = useCallback((kind: LogKind, line: string) => {
     const time = new Date().toLocaleTimeString([], { hour12: false })
@@ -41,6 +43,7 @@ export function useMemory(onStepDone: (id: StepId) => void) {
 
   useEffect(() => {
     api.status().then(setStatus).catch(() => setStatusError(true))
+    api.samples().then((list) => setSamples(list.samples)).catch(() => undefined)
   }, [])
 
   async function guarded<T>(name: string, task: () => Promise<T>): Promise<T | undefined> {
@@ -57,12 +60,17 @@ export function useMemory(onStepDone: (id: StepId) => void) {
     }
   }
 
-  const loadSample = async () => {
-    const sample = await api.sample()
+  const loadSample = async (name: string = sampleName) => {
+    const sample = await guarded('remember', () => api.sample(name))
+    if (!sample) return
+    setSampleName(sample.dataset)
     setText(sample.text)
     setDataset(sample.dataset)
-    write('call', `Loaded the Northwind Trails sample: ${sample.documents} documents from data/${sample.dataset}/.`)
+    write('call', `Loaded ${sample.title}: ${sample.files} documents from data/${sample.dataset}/.`)
   }
+
+  // Suggested questions for whichever sample the current dataset came from.
+  const suggestions = samples.find((s) => s.dataset === dataset)?.questions ?? []
 
   const remember = async () => {
     if (!text.trim()) return say('remember', 'Paste some text or load the sample first.')
@@ -116,6 +124,7 @@ export function useMemory(onStepDone: (id: StepId) => void) {
 
   return {
     status, statusError, dataset, setDataset, text, setText, question, setQuestion,
+    samples, sampleName, setSampleName, suggestions,
     searchType, setSearchType, results, graph, busy, notice, log,
     loadSample, remember, recall, loadGraph, forget,
   }

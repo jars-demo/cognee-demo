@@ -47,4 +47,16 @@ export interface GraphResponse extends CallInfo {
   edges: GraphEdge[]
 }
 
+export interface Sample {
+  dataset: string
+  title: string
+  description: string
+  questions: string[]
+  files: number
+}
+
+export interface SampleText extends Sample {
+  text: string
+}
+
 export type SearchType = '' | 'CHUNKS' | 'SUMMARIES' | 'RAG_COMPLETION' | 'GRAPH_COMPLETION'

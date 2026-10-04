@@ -29,8 +29,18 @@ export function RecallCard({ memory, highlight }: { memory: Memory; highlight: b
             value={memory.question}
             onChange={(e) => memory.setQuestion(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && memory.recall()}
-            placeholder="Who maintains the offline maps service?"
+            placeholder={memory.suggestions[0] ?? 'Ask anything about what you remembered'}
           />
+          {memory.suggestions.length > 0 && (
+            <div className="chips">
+              <span className="hint">Try:</span>
+              {memory.suggestions.map((q) => (
+                <button key={q} type="button" className="chip" onClick={() => memory.setQuestion(q)}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div>
           <label className="field" htmlFor="search-type">Search type</label>

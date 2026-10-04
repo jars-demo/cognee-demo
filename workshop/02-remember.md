@@ -32,6 +32,8 @@ search or forget them separately.
 
 ## Try
 
+- Pick **Meridian Space Lab** or **Harbor City Library** in the sample list, load it and remember
+  it too. Each sample goes into its own dataset (see [`data/`](../data)).
 - Paste a paragraph of your own and remember it into a new dataset name.
 - Watch the **Under the hood** log: every call and how long it took.
 

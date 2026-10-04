@@ -1,0 +1,9 @@
+{
+  "title": "Northwind Trails",
+  "description": "A small company that builds a hiking app: its team, two projects and a decisions log.",
+  "questions": [
+    "What is Project Riverbend blocked on?",
+    "Who leads the Mobile team?",
+    "Why did the Mobile team ship offline mode on Android first?"
+  ]
+}

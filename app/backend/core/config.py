@@ -23,10 +23,10 @@ ENV_FILE = REPO_ROOT / ".env"
 DATA_DIR = REPO_ROOT / ".cognee_data"
 SYSTEM_DIR = REPO_ROOT / ".cognee_system"
 
-# The workshop sample: the files in data/northwind_trails/ become the cognee dataset of the same
-# name, so the folder and the dataset are always called the same thing.
+# Sample datasets: every folder in data/ is one sample, remembered into the cognee dataset of the
+# same name. northwind_trails is the one the workshop uses.
+SAMPLES_DIR = REPO_ROOT / "data"
 SAMPLE_DATASET = "northwind_trails"
-SAMPLE_DIR = REPO_ROOT / "data" / SAMPLE_DATASET
 
 FRONTEND_DIST = REPO_ROOT / "app" / "frontend" / "dist"
 

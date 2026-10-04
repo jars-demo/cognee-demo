@@ -6,6 +6,8 @@ import type {
   GraphResponse,
   RecallResponse,
   RememberResponse,
+  Sample,
+  SampleText,
   SearchType,
   Status,
 } from './types.ts'
@@ -27,7 +29,9 @@ async function request<T>(path: string, init?: { method?: string; body?: unknown
 export const api = {
   status: () => request<Status>('/api/status'),
 
-  sample: () => request<{ dataset: string; documents: number; text: string }>('/api/sample'),
+  samples: () => request<{ default: string; samples: Sample[] }>('/api/samples'),
+
+  sample: (dataset: string) => request<SampleText>(`/api/samples/${encodeURIComponent(dataset)}`),
 
   remember: (text: string, dataset: string) =>
     request<RememberResponse>('/api/remember', { method: 'POST', body: { text, dataset } }),
