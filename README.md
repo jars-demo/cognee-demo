@@ -22,7 +22,7 @@ cd cognee-demo
 docker compose up -d --build
 ```
 
-Open **[http://localhost:3000/?workshop](http://localhost:3000/?workshop)** and follow the steps on the left.
+Open **[http://localhost:3000/#/workshop](http://localhost:3000/#/workshop)** and follow the steps on the left.
 
 The first build takes a few minutes, and the first **Remember** downloads cognee's local models
 (about 1 GB, once). Everything after that is quick.
@@ -46,7 +46,8 @@ python scripts/setup.py
 | [06 · Forget](workshop/06-forget.md)               | Delete from memory                   | 3 min  |
 | [07 · Your use case](workshop/07-your-use-case.md) | Use your own data and open a PR      | 15 min |
 
-The same steps are built into the app: switch on **Workshop mode**. Stuck? See
+The app has three pages: **Home**, **Concepts** (the ideas, with examples) and **Workshop**
+(these steps, next to a live playground). Stuck? See
 [troubleshooting](workshop/troubleshooting.md).
 
 ## How to run it

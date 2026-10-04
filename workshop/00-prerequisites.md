@@ -31,8 +31,8 @@ docker compose up -d --build
 
 Or run `python scripts/setup.py` to be guided through any option (and to add a Groq key).
 
-Open <http://localhost:3000/?workshop>. To warm up the models before the workshop, click
-**Load sample data → Remember** once: the first run downloads about 1 GB into a Docker volume.
+Open <http://localhost:3000/#/workshop>. To warm up the models before the workshop, click
+**Load sample → Remember** once: the first run downloads about 1 GB into a Docker volume.
 
 Stuck? See [Troubleshooting](./troubleshooting.md).
 

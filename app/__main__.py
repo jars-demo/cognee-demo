@@ -11,7 +11,7 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--reload", action="store_true", help="Restart on code changes.")
     args = parser.parse_args()
-    print(f"cognee-demo running at http://{args.host}:{args.port}/?workshop")
+    print(f"cognee-demo running at http://{args.host}:{args.port}/#/workshop")
     uvicorn.run("app.backend.main:app", host=args.host, port=args.port, reload=args.reload)
 
 

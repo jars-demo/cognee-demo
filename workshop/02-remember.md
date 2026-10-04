@@ -2,7 +2,8 @@
 
 ## Do it
 
-1. In the **Remember** card, click **Load sample data**. It loads the three files in
+1. In the **Remember** card, keep **Northwind Trails** selected and click **Load sample**. It
+   loads the three files in
    [`data/northwind_trails/`](../data/northwind_trails): short notes about a fictional company
    (the team, two projects and a decisions log).
 2. Keep the dataset name `northwind_trails` and click **Remember**.

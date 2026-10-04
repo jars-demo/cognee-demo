@@ -29,8 +29,8 @@ app/backend/
 └── Dockerfile
 
 app/frontend/src/
-├── main.tsx · App.tsx       entry and app shell
-├── pages/HomePage.tsx       the page: one card per cognee operation
+├── main.tsx · App.tsx       entry and app shell; router.ts = hash routes #/ #/concepts #/workshop
+├── pages/                   HomePage (landing), ConceptsPage, WorkshopPage (guide + playground)
 ├── components/cards/        Remember, Recall, Graph, Forget, ActivityLog
 ├── components/layout/       TopBar, Hero, Footer
 ├── hooks/useMemory.ts       all state and actions

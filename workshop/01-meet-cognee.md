@@ -4,8 +4,9 @@
 
 If it is not running yet: `docker compose up -d --build` (or `python scripts/setup.py`).
 
-Open <http://localhost:3000/?workshop> and switch on **Workshop mode** if it is not already on.
-The badge in the top bar shows which mode you are in.
+Open <http://localhost:3000/#/workshop>. The guide on the left follows these chapters, and the
+badge in the top bar shows where cognee is running. New to the ideas? Read the **Concepts** page
+first (<http://localhost:3000/#/concepts>).
 
 ## What cognee does
 

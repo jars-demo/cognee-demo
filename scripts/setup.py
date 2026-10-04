@@ -191,7 +191,7 @@ def start(mode: str, args: argparse.Namespace) -> None:
         require("docker", "https://docs.docker.com/get-docker/")
         run(["docker", "compose", "up", "-d", "--build"])
         wait_for("http://localhost:8000/health", "backend")
-        title("Done! Open http://localhost:3000/?workshop")
+        title("Done! Open http://localhost:3000/#/workshop")
         info("Stop:  docker compose down      Logs:  docker compose logs -f")
         return
 
@@ -212,9 +212,9 @@ def start(mode: str, args: argparse.Namespace) -> None:
     if mode == "dev":
         info(f"Terminal 1 (backend):   {py} -m app --reload")
         info("Terminal 2 (frontend):  cd app/frontend && npm run dev")
-        info("Open http://localhost:5173/?workshop")
+        info("Open http://localhost:5173/#/workshop")
     else:
-        info(f"Start the app:  {py} -m app     then open http://localhost:8000/?workshop")
+        info(f"Start the app:  {py} -m app     then open http://localhost:8000/#/workshop")
 
 
 def main() -> None:
