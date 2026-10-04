@@ -1,12 +1,26 @@
-# cognee-demo
+<p align="center">
+  <a href="https://github.com/topoteretes/cognee">
+    <img src="app/frontend/public/cognee/cognee-logo.svg" alt="cognee" height="40">
+  </a>
+</p>
 
-A hands-on workshop for **[cognee](https://github.com/topoteretes/cognee)**, the open-source
-memory engine for AI apps. Give it some text, watch it build a knowledge graph, ask it
-questions, then build your own use case and open a pull request.
+<h1 align="center">cognee-demo</h1>
+
+<p align="center">
+  A hands-on workshop for <a href="https://github.com/topoteretes/cognee">cognee</a>, the open-source
+  memory engine for AI apps.
+</p>
+
+<p align="center">
+  <img src="docs/images/home.png" alt="The cognee-demo home page" width="860">
+</p>
+
+Give cognee some text, watch it build a knowledge graph, ask it questions, then build your own use
+case and open a pull request.
 
 - **One command to run**, no API key needed (open local models by default)
 - **30–60 minutes**, for beginners and developers
-- **A real app**: FastAPI backend, React + TypeScript frontend, guided **workshop mode**
+- **A real app**: FastAPI backend, React + TypeScript frontend with Home, Concepts and Workshop pages
 
 ```text
 remember(text)  →  knowledge graph + search index  →  recall(question)  →  forget(dataset)
@@ -32,6 +46,12 @@ The first build takes a few minutes, and the first **Remember** downloads cognee
 ```bash
 python scripts/setup.py
 ```
+
+## A look inside
+
+| Workshop: guide + live playground | Concepts: what cognee builds |
+|---|---|
+| ![The workshop page with the step-by-step guide](docs/images/workshop.png) | ![An example knowledge graph on the Concepts page](docs/images/concepts-graph.png) |
 
 ## The workshop
 
