@@ -1,15 +1,15 @@
 import type { Status } from '../../api/types.ts'
+import { ROUTES, type Route } from '../../router.ts'
 
 interface Props {
+  route: Route
   status: Status | null
   statusError: boolean
-  workshopOn: boolean
-  onWorkshop: (on: boolean) => void
   dark: boolean
   onTheme: () => void
 }
 
-export function TopBar({ status, statusError, workshopOn, onWorkshop, dark, onTheme }: Props) {
+export function TopBar({ route, status, statusError, dark, onTheme }: Props) {
   const badgeClass = status ? (status.llm_available === false ? 'warn' : 'ok') : ''
   const badgeText = statusError
     ? 'Backend not reachable'
@@ -18,15 +18,19 @@ export function TopBar({ status, statusError, workshopOn, onWorkshop, dark, onTh
       : 'Checking setup…'
   return (
     <header className="topbar">
-      <a className="logo" href="/"><span className="logo-dot" />cognee demo</a>
-      <span className={`badge ${badgeClass}`} title={status?.detail}>{badgeText}</span>
+      <a className="logo" href="#/"><span className="logo-dot" />cognee demo</a>
+      <nav className="nav" aria-label="Pages">
+        {ROUTES.map((r) => (
+          <a key={r.route} href={r.href} className={route === r.route ? 'active' : ''}>
+            {r.label}
+          </a>
+        ))}
+      </nav>
       <div className="spacer" />
-      <label className="toggle" title="Show the step-by-step workshop guide">
-        <input type="checkbox" checked={workshopOn} onChange={(e) => onWorkshop(e.target.checked)} />
-        <span className="track" />
-        Workshop mode
-      </label>
-      <button className="btn ghost small" type="button" onClick={onTheme}>{dark ? 'Light' : 'Dark'}</button>
+      <span className={`badge ${badgeClass}`} title={status?.detail}>{badgeText}</span>
+      <button className="btn ghost small" type="button" onClick={onTheme} aria-label="Toggle dark mode">
+        {dark ? 'Light' : 'Dark'}
+      </button>
     </header>
   )
 }

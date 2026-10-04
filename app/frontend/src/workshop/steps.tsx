@@ -1,4 +1,4 @@
-// The seven workshop steps shown in Workshop mode. Keep in sync with workshop/*.md.
+// The seven workshop steps shown on the Workshop page. Keep in sync with workshop/*.md.
 
 import type { ReactNode } from 'react'
 import { type Memory, SAMPLE_DATASET, type StepId } from '../hooks/useMemory.ts'
