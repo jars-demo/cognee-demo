@@ -4,7 +4,8 @@ import type { GraphNode } from '../../api/types.ts'
 import type { Memory } from '../../hooks/useMemory.ts'
 import { Button, Card } from '../Card.tsx'
 
-const COLORS = ['#ffde00', '#3e5dff', '#95e9ad', '#fca193', '#c9b8ff', '#7fd3e6', '#f5a3d0', '#b5b2a6']
+// Lavender first (cognee's accent), then calm, distinguishable tones.
+const COLORS = ['#bc9bff', '#7fb6ff', '#7ed9a5', '#f7b267', '#ff8f8f', '#d4c4a8', '#9aa5b1', '#e3d5ff']
 
 interface Selected {
   node: GraphNode
@@ -17,7 +18,7 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
   const graph = memory.graph
   const types = useMemo(() => [...new Set(graph?.nodes.map((n) => n.type) ?? [])].sort(), [graph])
   const color = (type: string) => COLORS[types.indexOf(type) % COLORS.length]
-  const ink = dark ? '#f4f3ee' : '#161616'
+  const ink = dark ? '#f4f2ee' : '#0c0121'
 
   useEffect(() => {
     setSelected(null)
@@ -34,7 +35,7 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
           selector: 'node',
           style: {
             'background-color': 'data(color)', 'border-width': 1.5, 'border-color': ink,
-            label: 'data(label)', color: ink, 'font-size': 10, 'font-family': 'IBM Plex Sans, sans-serif',
+            label: 'data(label)', color: ink, 'font-size': 10, 'font-family': 'Inter, sans-serif',
             'text-valign': 'bottom', 'text-margin-y': 4, width: 18, height: 18,
           },
         },
@@ -46,7 +47,7 @@ export function GraphCard({ memory, highlight, dark }: { memory: Memory; highlig
             label: 'data(label)', 'font-size': 8, color: `${ink}aa`, 'text-rotation': 'autorotate',
           },
         },
-        { selector: 'node:selected', style: { 'border-width': 4, 'border-color': '#3e5dff' } },
+        { selector: 'node:selected', style: { 'border-width': 4, 'border-color': '#a380ea' } },
       ],
       layout: { name: 'cose', animate: false, nodeRepulsion: () => 9000, idealEdgeLength: () => 90 },
       wheelSensitivity: 0.2,
