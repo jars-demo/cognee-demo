@@ -164,3 +164,8 @@ Add your use case (the workshop's final step) or improve the workshop: see
 [Cognee Cloud](https://docs.cognee.ai/cognee-cloud/overview) · [Discord](https://discord.gg/NQPKmU5CCg)
 
 This is a community workshop built on cognee, not an official cognee project.
+
+## License
+
+[MIT](LICENSE) © 2026 Jishanahmed AR Shaikh. Third-party assets keep their own licenses; see
+[NOTICE.md](NOTICE.md).
